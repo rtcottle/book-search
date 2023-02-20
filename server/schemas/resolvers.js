@@ -6,9 +6,8 @@ const resolvers = {
   Query: {
     user: async (parent, { username }) => {
       return User.findOne({
-        // TODO: not sure this is accurate.
         $or: [
-          { _id: user ? user._id : params.id },
+          { _id: User ? User._id : params.id },
           { username: params.username },
         ],
       }).populate('books');
@@ -36,7 +35,7 @@ const resolvers = {
     },
     saveBook: async (parent, { bookid }) => {
       const book = await User.findOneAndUpdate(
-        { _id: user._id },
+        { _id: User._id },
         { $addToSet: { savedBooks: body } },
         { new: true, runValidators: true }
       );
